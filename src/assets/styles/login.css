@@ -1,0 +1,32 @@
+.btn-login-btn {
+  color: white;
+  background-color: var(--charcoal);
+}
+.btn-login-btn:hover {
+  color: white;
+  background-color: var(--charcoal);
+}
+
+.btn-login-btn:focus {
+  box-shadow: none;
+}
+
+.login-text {
+  color: var(--charcoal);
+}
+
+.form-control:focus {
+  box-shadow: none;
+  border-color: var(--charcoal);
+}
+
+.container {
+  max-width: 500px;
+}
+
+.title-login {
+  text-align: center;
+  color: var(--charcoal);
+  margin-top: 25%;
+  font-size: 50px;
+}
