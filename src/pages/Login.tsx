@@ -1,32 +1,33 @@
-
 import { Container } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import '../assets/styles/login.css';
-import {useState } from "react";
+import {useState, MouseEvent, ChangeEvent  } from "react";
 
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [passwordError, setPasswordError] = useState(false)
   const [loginError, setLoginError] = useState(false)
+  const [invalidUsername, setInvalidUsername] = useState(false)
 
-  function updateLogin(e: React.ChangeEvent<HTMLInputElement>) {
+  function updateLogin(e: ChangeEvent<HTMLInputElement>) {
     e.preventDefault();
     setUsername(e.target.value);
   }
 
-  function updatePassword(e: React.ChangeEvent<HTMLInputElement>) {
+  function updatePassword(e: ChangeEvent<HTMLInputElement>) {
     e.preventDefault();
     setPassword(e.target.value);
   }
 
-  function login(e: any) {
+  function login(e: MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
-    if (username === "") setLoginError(true)
-    else setLoginError(false)
-    if (password === "") setPasswordError(true)
-    else setPasswordError(false)
+    setInvalidUsername(false)
+    username === "" ? setLoginError(true) : setLoginError(false)
+    password === "" ? setPasswordError(true) : setPasswordError(false)
+    if (username !== "" && password !== "")
+      username === "lol" && password === "lol" ? setInvalidUsername(false) : setInvalidUsername(true)
   }
 
 
@@ -37,7 +38,7 @@ function Login() {
           <Form.Label column= "lg" className="login-text"> Username </Form.Label>
         <Form.Control className="login-form" onChange={updateLogin} />
         { loginError
-            ? <div className="alert alert-danger">Login is a required field.</div>
+            ? <div className="alert alert-danger mt-2">Username is a required field.</div>
             : ''
         }
         </Form.Group>
@@ -46,16 +47,20 @@ function Login() {
           <Form.Label column="lg" className="login-text">Password</Form.Label>
         <Form.Control type="password" onChange={updatePassword} />
           { passwordError
-            ? <div className="alert alert-danger">Password is a required field.</div>
+            ? <div className="alert alert-danger mt-2">Password is a required field.</div>
             : ''
           }
         </Form.Group>
-      <Button variant="login-btn" size="lg" type="submit" onClick={(e) => login(e) }>
+      <Button variant="login-btn" size="lg" type="submit" onClick={login }>
           Login
       </Button> {' '}
       <Button variant="login-btn" size="lg" type="submit">
           Forgot password
       </Button>
+          { invalidUsername
+            ? <div className="alert alert-danger mt-2">Invalid login, please try again</div>
+            : ''
+          }
       </Form>
     </Container>
 }

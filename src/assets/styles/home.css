@@ -1,0 +1,26 @@
+.card-style-home {
+  padding: 0.5em;
+  margin-left: 0.5em;
+  margin-right: 0.5em;
+  margin-top: 0.5em;
+  background-color: rgb(235, 235, 235);
+  max-width: 12em;
+  border-radius: 0px;
+  border: 0px;
+}
+
+.card-style-home-first {
+  padding: 0.5em;
+  margin-left: 0.5em;
+  margin-right: 0.5em;
+  background-color: rgb(235, 235, 235);
+  max-width: 12em;
+  border-radius: 0px;
+  border: 0px;
+}
+
+.subtitle-home {
+  font-weight: bold;
+  margin-left: 0.5em;
+  margin-top: 0.5em;
+}
