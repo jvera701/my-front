@@ -3,13 +3,18 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import '../assets/styles/login.css';
 import {useState, MouseEvent, ChangeEvent  } from "react";
+import React from 'react';
+import { useDispatch } from "react-redux";
+import { loginAxios } from "../store/actionCreators";
+import { Link } from "react-router-dom";
 
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [passwordError, setPasswordError] = useState(false)
   const [loginError, setLoginError] = useState(false)
-  const [invalidUsername, setInvalidUsername] = useState(false)
+  const [invalidLogin, setInvalidLogin] = useState(false)
+  const dispatch = useDispatch();
 
   function updateLogin(e: ChangeEvent<HTMLInputElement>) {
     e.preventDefault();
@@ -21,21 +26,22 @@ function Login() {
     setPassword(e.target.value);
   }
 
-  function login(e: MouseEvent<HTMLButtonElement>) {
+  async function login(e: MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
-    setInvalidUsername(false)
+    setInvalidLogin(false)
     username === "" ? setLoginError(true) : setLoginError(false)
     password === "" ? setPasswordError(true) : setPasswordError(false)
     if (username !== "" && password !== "")
-      username === "lol" && password === "lol" ? setInvalidUsername(false) : setInvalidUsername(true)
+      dispatch( loginAxios (username, password, setInvalidLogin));
   }
+  
 
 
   return <Container >
       <Form >
           <h1 className="title-login"> Welcome to Educas </h1>
         <Form.Group className="mb-3" controlId="formBasicEmail">
-          <Form.Label column= "lg" className="login-text"> Username </Form.Label>
+          <Form.Label column= "lg" className="login-text"> Email </Form.Label>
         <Form.Control className="login-form" onChange={updateLogin} />
         { loginError
             ? <div className="alert alert-danger mt-2">Username is a required field.</div>
@@ -51,13 +57,15 @@ function Login() {
             : ''
           }
         </Form.Group>
-      <Button variant="login-btn" size="lg" type="submit" onClick={login }>
-          Login
-      </Button> {' '}
+      <Link to="/home">
+        <Button variant="login-btn" size="lg" type="submit" onClick={login}>
+            Login
+        </Button>
+      </Link> {' '}
       <Button variant="login-btn" size="lg" type="submit">
           Forgot password
       </Button>
-          { invalidUsername
+          { invalidLogin
             ? <div className="alert alert-danger mt-2">Invalid login, please try again</div>
             : ''
           }

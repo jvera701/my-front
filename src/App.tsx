@@ -4,9 +4,9 @@ import { Router, Switch, Route } from "react-router-dom"
 
 import { Suspense, lazy } from "react"
 import Loading from "./components/Loading"
-import { createBrowserHistory } from "history"
-const history = createBrowserHistory()
-
+import React from 'react';
+import NotFound from "./pages/NotFound"
+import history from "./history";
 
 function App() {
   return (
@@ -15,6 +15,7 @@ function App() {
         <Switch>
           <Route exact path="/" component={Login} />
           <Route exact path="/home" component={Home} />
+          <Route component={NotFound} />
         </Switch>
       </Suspense>
     </Router>

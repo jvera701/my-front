@@ -1,0 +1,16 @@
+.title-notFound {
+  font-size: 50px;
+  font-weight: bold;
+  color: red;
+}
+.text-notFound {
+  font-size: 30px;
+  color: red;
+}
+.section-notFound {
+  display: inline-flex;
+  text-align: center;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 20%;
+}

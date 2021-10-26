@@ -2,6 +2,7 @@ import { CardGroup } from "react-bootstrap"
 import Card from "react-bootstrap/Card"
 import '../assets/styles/home.css';
 import CustomNavbar from "../components/CustomNavbar";
+import React from 'react';
 
 function Home() {
     return <>
