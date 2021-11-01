@@ -8,7 +8,6 @@ function CustomNavbar() {
 
   function logout(key) {
     if (key === 'logout') {
-      //console.log('logout')
       dispatch(logOut())
     }
   }

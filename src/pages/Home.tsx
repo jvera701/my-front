@@ -5,6 +5,7 @@ import CustomNavbar from '../components/CustomNavbar'
 import React, { useEffect, useState } from 'react'
 import customAxios from '../axios'
 import { useSelector } from 'react-redux'
+import Spinner from '../components/Spinner'
 
 interface Course {
   code: string
@@ -39,7 +40,7 @@ export default function Home() {
     getData()
   }, [])
 
-  if (courseData.length === 1) return <div> Loading ... </div>
+  if (courseData.length === 1) return <Spinner />
   else {
     return (
       <>
