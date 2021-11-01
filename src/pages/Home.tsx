@@ -20,24 +20,19 @@ export type TCourseList = [Course[]]
 export default function Home() {
   const email = useSelector((state: any) => state.user.email)
   const [courseData, setCourseData] = useState<TCourseList>([[]])
-
-  function getData() {
-    customAxios({
+  async function setData() {
+    const resp: any = await customAxios({
       url: customAxios.defaults.baseURL + '/home',
       method: 'post',
       data: {
         email: email,
       },
     })
-      .then((response: any) => {
-        setCourseData(response.data)
-      })
-      .catch(e => {
-        console.error(e)
-      })
+    setCourseData(resp.data)
   }
+
   useEffect(() => {
-    getData()
+    setData()
   }, [])
 
   if (courseData.length === 1) return <Spinner />
@@ -52,7 +47,7 @@ export default function Home() {
                 {' '}
                 {'Period ' + courses[0].period}
               </h3>
-              <CardGroup>
+              <CardGroup className='card-group-home'>
                 {courses.map((course: Course) => {
                   return (
                     <Card key={course._id} className='card-style-home mx-auto'>

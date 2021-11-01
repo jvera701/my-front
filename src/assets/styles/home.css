@@ -4,6 +4,8 @@
   max-width: 12em;
   border: 0px;
   justify-content: center;
+  padding: 15px;
+  box-shadow: inset 0 0 0 7px white;
 }
 
 .subtitle-home {
@@ -14,7 +16,6 @@
 }
 
 .div-home {
-  display: flexbox;
+  display: grid;
   justify-content: center;
-  align-items: center;
 }
