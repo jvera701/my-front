@@ -7,6 +7,7 @@ const initialState = {
   user: {},
   status: LOADING,
   errStatus: INITIALIZED,
+  error: '',
 }
 
 declare global {

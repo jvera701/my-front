@@ -3,7 +3,7 @@ import React from 'react'
 
 function Loading() {
   return (
-    <Spinner animation="border" role="status">
+    <Spinner animation='border' role='status'>
       <span>Loading...</span>
     </Spinner>
   )

@@ -2,61 +2,69 @@ import { CardGroup } from 'react-bootstrap'
 import Card from 'react-bootstrap/Card'
 import '../assets/styles/home.css'
 import CustomNavbar from '../components/CustomNavbar'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import customAxios from '../axios'
+import { useSelector } from 'react-redux'
 
-function Home() {
-  return (
-    <>
-      <CustomNavbar />
-      <h3 className="subtitle-home"> 2018 S1 </h3>
-      <CardGroup>
-        <Card className="card-style-home-first">
-          <Card.Title>Course 1</Card.Title>
-          <Card.Subtitle>Subtitle 1</Card.Subtitle>
-        </Card>
-        <Card className="card-style-home-first">
-          <Card.Title>Course 2</Card.Title>
-          <Card.Subtitle>Subtitle 2</Card.Subtitle>
-        </Card>
-        <Card className="card-style-home-first">
-          <Card.Title>Course 3</Card.Title>
-          <Card.Subtitle>Subtitle 3</Card.Subtitle>
-        </Card>
-        <Card className="card-style-home-first">
-          <Card.Title>Course 4</Card.Title>
-          <Card.Subtitle>Subtitle 4</Card.Subtitle>
-        </Card>
-        <Card className="card-style-home-first">
-          <Card.Title>Course 5</Card.Title>
-          <Card.Subtitle>Subtitle 4</Card.Subtitle>
-        </Card>
-      </CardGroup>
-
-      <h3 className="subtitle-home"> 2018 S2 </h3>
-      <CardGroup>
-        <Card className="card-style-home">
-          <Card.Title>Course 1</Card.Title>
-          <Card.Subtitle>Subtitle 1</Card.Subtitle>
-        </Card>
-        <Card className="card-style-home">
-          <Card.Title>Course 2</Card.Title>
-          <Card.Subtitle>Subtitle 2</Card.Subtitle>
-        </Card>
-        <Card className="card-style-home">
-          <Card.Title>Course 3</Card.Title>
-          <Card.Subtitle>Subtitle 3</Card.Subtitle>
-        </Card>
-        <Card className="card-style-home">
-          <Card.Title>Course 4</Card.Title>
-          <Card.Subtitle>Subtitle 4</Card.Subtitle>
-        </Card>
-        <Card className="card-style-home">
-          <Card.Title>Course 5</Card.Title>
-          <Card.Subtitle>Subtitle 4</Card.Subtitle>
-        </Card>
-      </CardGroup>
-    </>
-  )
+interface Course {
+  code: string
+  period: number
+  name: string
+  _id: string
+  files: [string]
 }
 
-export default Home
+export type TCourseList = [Course[]]
+
+export default function Home() {
+  const email = useSelector((state: any) => state.user.email)
+  const [courseData, setCourseData] = useState<TCourseList>([[]])
+
+  function getData() {
+    customAxios({
+      url: customAxios.defaults.baseURL + '/home',
+      method: 'post',
+      data: {
+        email: email,
+      },
+    })
+      .then((response: any) => {
+        setCourseData(response.data)
+      })
+      .catch(e => {
+        console.error(e)
+      })
+  }
+  useEffect(() => {
+    getData()
+  }, [])
+
+  if (courseData.length === 1) return <div> Loading ... </div>
+  else {
+    return (
+      <>
+        <CustomNavbar />
+        {courseData.map((courses: Course[]) => {
+          return (
+            <div key={courses[0].period} className='div-home'>
+              <h3 className='subtitle-home'>
+                {' '}
+                {'Period ' + courses[0].period}
+              </h3>
+              <CardGroup>
+                {courses.map((course: Course) => {
+                  return (
+                    <Card key={course._id} className='card-style-home mx-auto'>
+                      <Card.Title>{course.code}</Card.Title>
+                      <Card.Subtitle>{course.name}</Card.Subtitle>
+                    </Card>
+                  )
+                })}
+              </CardGroup>
+            </div>
+          )
+        })}
+      </>
+    )
+  }
+}

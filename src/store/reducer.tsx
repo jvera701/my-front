@@ -1,13 +1,21 @@
-import { LOGIN, AUTHENTICATED, ERROR, FINISHED } from './actions'
+import {
+  LOGIN,
+  AUTHENTICATED,
+  ERROR,
+  FINISHED,
+  LOGOUT,
+  NOT_AUTHENTICATED,
+} from './actions'
 
-const reducer = (state: any, action: any) => {
+function reducer(state: any, action: any) {
   switch (action.type) {
     case LOGIN: {
-      const { name, role } = action.payload
+      const { name, role, email } = action.payload
       return {
         ...state,
-        user: { name, role },
+        user: { name, role, email },
         status: AUTHENTICATED,
+        error: '',
       }
     }
     case ERROR:
@@ -16,7 +24,13 @@ const reducer = (state: any, action: any) => {
         error: action.payload,
         errStatus: FINISHED,
       }
-
+    case LOGOUT:
+      return {
+        ...state,
+        user: {},
+        status: NOT_AUTHENTICATED,
+        error: '',
+      }
     default:
       return state
   }
