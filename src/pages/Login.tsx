@@ -7,14 +7,25 @@ import React from 'react'
 import { useDispatch } from 'react-redux'
 import { loginAxios } from '../store/actionCreators'
 import { Link } from 'react-router-dom'
+import { AUTHORIZATION } from '../store/actions'
+import { loadUser, logOut } from '../store/actionCreators'
+import { useEffect } from 'react'
 
 function Login() {
+  const dispatch = useDispatch()
+  useEffect(() => {
+    if (localStorage.getItem(AUTHORIZATION)) {
+      dispatch(loadUser())
+    } else {
+      dispatch(logOut())
+    }
+  }, [dispatch])
+
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [passwordError, setPasswordError] = useState(false)
   const [loginError, setLoginError] = useState(false)
   const [invalidLogin, setInvalidLogin] = useState(false)
-  const dispatch = useDispatch()
 
   function updateLogin(e: ChangeEvent<HTMLInputElement>) {
     e.preventDefault()

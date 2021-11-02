@@ -48,6 +48,7 @@ export function loadUser() {
 export function logOut() {
   return async function (dispatch: Dispatch<any>) {
     localStorage.removeItem(AUTHORIZATION)
+    history.push('/')
     return { type: LOGOUT }
   }
 }
