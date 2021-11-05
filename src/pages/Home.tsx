@@ -1,5 +1,3 @@
-import { CardGroup } from 'react-bootstrap'
-import Card from 'react-bootstrap/Card'
 import '../assets/styles/home.css'
 import CustomNavbar from '../components/CustomNavbar'
 import React, { useEffect, useState } from 'react'
@@ -42,22 +40,22 @@ export default function Home() {
         <CustomNavbar />
         {courseData.map((courses: Course[]) => {
           return (
-            <div key={courses[0].period} className='div-home'>
+            <>
               <h3 className='subtitle-home'>
                 {' '}
                 {'Period ' + courses[0].period}
               </h3>
-              <CardGroup className='card-group-home'>
+              <div key={courses[0].period} className='div-home'>
                 {courses.map((course: Course) => {
                   return (
-                    <Card key={course._id} className='card-style-home mx-auto'>
-                      <Card.Title>{course.code}</Card.Title>
-                      <Card.Subtitle>{course.name}</Card.Subtitle>
-                    </Card>
+                    <div key={course._id} className='card-style-home'>
+                      <div className='title-card-home'>{course.code}</div>
+                      <div className='text-card-home'>{course.name}</div>
+                    </div>
                   )
                 })}
-              </CardGroup>
-            </div>
+              </div>
+            </>
           )
         })}
       </>

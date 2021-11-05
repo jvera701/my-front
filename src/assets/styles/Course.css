@@ -1,0 +1,75 @@
+.card-course {
+  border-bottom-style: solid;
+  border-color: gray;
+  border-width: thin;
+  position: relative;
+  padding-left: 5px;
+  padding-bottom: 5px;
+  padding-right: 5px;
+}
+
+.bg-green {
+  background-color: green;
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  max-width: 400px;
+  overflow-y: auto;
+}
+
+.question-course {
+  width: 240px;
+  max-width: 240px;
+  line-height: 1.1;
+}
+
+.right-course {
+  position: absolute;
+  right: 5px;
+}
+
+.center-comments-course {
+  position: absolute;
+  left: 100px;
+}
+
+@media (max-width: 700px) {
+  .sidebar {
+    max-width: 100%;
+  }
+}
+
+.title-course {
+  font-size: 16px;
+  font-weight: bold;
+  display: grid;
+}
+
+.pin-course {
+  color: indigo;
+}
+
+.bottom-course {
+  display: grid;
+  padding-top: 5px;
+}
+
+.arrow-course {
+  color: black;
+}
+
+.chat-course {
+  color: blue;
+}
+
+.thread-category-course {
+  width: 105px;
+  max-width: 105px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 3px;
+}

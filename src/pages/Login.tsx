@@ -11,7 +11,7 @@ import { AUTHORIZATION } from '../store/actions'
 import { loadUser, logOut } from '../store/actionCreators'
 import { useEffect } from 'react'
 
-function Login() {
+export default function Login() {
   const dispatch = useDispatch()
   useEffect(() => {
     if (localStorage.getItem(AUTHORIZATION)) {
@@ -96,5 +96,3 @@ function Login() {
     </Container>
   )
 }
-
-export default Login

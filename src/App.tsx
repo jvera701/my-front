@@ -8,6 +8,7 @@ import history from './history'
 import PrivateRoute from './pages/PrivateRoute'
 import LoginRoute from './pages/LoginRoute'
 import Spinner from './components/Spinner'
+import Course from './pages/Course'
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Switch>
           <LoginRoute exact path='/' component={Login} />
           <PrivateRoute exact path='/home' component={Home} />
+          <Route exact path='/course' component={Course} />
           <Route path='*' component={NotFound} />
         </Switch>
       </Suspense>

@@ -1,0 +1,13 @@
+.post {
+  border-left-style: solid;
+  border-color: gray;
+  width: 100%;
+  max-height: 100%;
+  border-width: thin;
+}
+
+@media (max-width: 700px) {
+  .post {
+    display: none;
+  }
+}
