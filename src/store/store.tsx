@@ -8,6 +8,7 @@ const initialState = {
   status: LOADING,
   errStatus: INITIALIZED,
   error: '',
+  course: '',
 }
 
 declare global {

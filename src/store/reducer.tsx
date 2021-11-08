@@ -5,6 +5,7 @@ import {
   FINISHED,
   LOGOUT,
   NOT_AUTHENTICATED,
+  COURSE,
 } from './actions'
 
 function reducer(state: any, action: any) {
@@ -16,6 +17,13 @@ function reducer(state: any, action: any) {
         user: { name, role, email },
         status: AUTHENTICATED,
         error: '',
+      }
+    }
+    case COURSE: {
+      const { courseId } = action.payload
+      return {
+        ...state,
+        course: courseId,
       }
     }
     case ERROR:

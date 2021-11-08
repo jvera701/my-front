@@ -1,5 +1,5 @@
 import customAxios from '../axios'
-import { AUTHORIZATION, LOGIN, ERROR, LOGOUT } from './actions'
+import { AUTHORIZATION, LOGIN, ERROR, LOGOUT, COURSE } from './actions'
 import history from '../history'
 import { Dispatch } from 'react'
 
@@ -49,6 +49,16 @@ export function logOut() {
   return async function (dispatch: Dispatch<any>) {
     localStorage.removeItem(AUTHORIZATION)
     history.push('/')
-    return { type: LOGOUT }
+    dispatch({ type: LOGOUT })
+  }
+}
+
+export function putCourse(courseId: string) {
+  return async function (dispatch: Dispatch<any>) {
+    try {
+      dispatch({ type: COURSE, payload: { courseId } })
+    } catch (e) {
+      console.error(e)
+    }
   }
 }

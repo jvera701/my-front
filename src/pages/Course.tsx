@@ -13,6 +13,7 @@ export default function Course() {
     time: 'Posted 5 minutes ago',
     answers: '0',
   }
+
   return (
     <>
       <CustomNavbar />

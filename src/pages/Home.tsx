@@ -5,7 +5,8 @@ import customAxios from '../axios'
 import { useSelector } from 'react-redux'
 import Spinner from '../components/Spinner'
 import { Link } from 'react-router-dom'
-
+import { useDispatch } from 'react-redux'
+import { putCourse } from '../store/actionCreators'
 interface Course {
   code: string
   period: number
@@ -19,6 +20,7 @@ export type TCourseList = [Course[]]
 export default function Home() {
   const email = useSelector((state: any) => state.user.email)
   const [courseData, setCourseData] = useState<TCourseList>([[]])
+  const dispatch = useDispatch()
 
   async function setData() {
     const resp: any = await customAxios({
@@ -29,11 +31,6 @@ export default function Home() {
       },
     })
     setCourseData(resp.data)
-  }
-
-  function toCourse(id) {
-    console.log(id)
-    return undefined
   }
 
   useEffect(() => {
@@ -56,7 +53,14 @@ export default function Home() {
                 {courses.map((course: Course) => {
                   const strLink = '/home/' + course._id
                   return (
-                    <Link to={strLink} key={course._id} className='link-home'>
+                    <Link
+                      to={strLink}
+                      key={course._id}
+                      className='link-home'
+                      onClick={() => {
+                        dispatch(putCourse(course._id))
+                      }}
+                    >
                       <div key={course._id} className='card-style-home'>
                         <div className='title-card-home'>{course.code}</div>
                         <div className='text-card-home'>{course.name}</div>
