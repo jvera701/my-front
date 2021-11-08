@@ -33,7 +33,7 @@
 
 .center-comments-course {
   position: absolute;
-  left: 100px;
+  left: 70px;
 }
 
 @media (max-width: 700px) {
@@ -66,10 +66,7 @@
 }
 
 .thread-category-course {
-  width: 105px;
-  max-width: 105px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding-top: 3px;
+  width: 60px;
+  max-width: 60px;
+  margin-top: -1px;
 }

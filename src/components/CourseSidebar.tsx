@@ -23,7 +23,7 @@ export default function CourseSidebar() {
           </Badge>
         </div>
         <div className='center-comments-course'>
-          10 <ChatFill className='chat-course' />
+          50m 10 <ChatFill className='chat-course' />
         </div>
         <div className='right-course'> Jose Alejandro Vera </div>
       </div>
