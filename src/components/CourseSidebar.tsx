@@ -22,10 +22,11 @@ export default function CourseSidebar() {
             General
           </Badge>
         </div>
-        <div className='center-comments-course'>
-          50m 10 <ChatFill className='chat-course' />
+        <div>50m</div>
+        <div>
+          10 <ChatFill className='chat-course' />
         </div>
-        <div className='right-course'> Jose Alejandro Vera </div>
+        <div className='name-course'> Jose Vera </div>
       </div>
     </div>
   )

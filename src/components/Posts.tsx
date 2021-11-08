@@ -10,7 +10,7 @@ export default function Posts() {
     <div className='post'>
       <div className='post-title'> How do you integrate by parts ? </div>
       <div className='post-top'>
-        <div className='post-answer'>Can anyone give me an example</div>
+        <div className='post-answer'> ss</div>
         <div className='post-vote'>
           <div className='post-inner-vote'>
             <ArrowUpCircle />
@@ -34,9 +34,8 @@ export default function Posts() {
           Pin
         </Button>
         <div className='post-person'>
-          {' '}
           <Person />
-          Jose Alejandro Vera{' '}
+          Jose Vera
         </div>
         <div className='post-info'>Posted 55 minutes ago</div>
       </div>

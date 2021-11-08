@@ -1,5 +1,6 @@
 .bg-blue {
   background-color: rgb(29, 57, 68);
+  max-height: 35px;
 }
 
 .orange {

@@ -1,0 +1,47 @@
+.left-sidebar {
+  padding-left: 3px;
+  padding-top: 5px;
+  border-right: gray;
+  border-style: solid;
+  border-width: thin;
+  width: 200px;
+  max-width: 200px;
+}
+
+.title-left-sidebar {
+  font-weight: bold;
+}
+
+.square {
+  width: 15px;
+  height: 15px;
+  margin-top: 5px;
+}
+
+.general {
+  background: #13b4ff;
+}
+
+.tutorials {
+  background: brown;
+}
+
+.lectures {
+  background: cadetblue;
+}
+
+.quizzes {
+  background: chartreuse;
+}
+
+.assignments {
+  background: red;
+}
+
+.exams {
+  background: darkorchid;
+}
+
+.resources {
+  background: gold;
+}

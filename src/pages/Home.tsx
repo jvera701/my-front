@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import customAxios from '../axios'
 import { useSelector } from 'react-redux'
 import Spinner from '../components/Spinner'
+import { Link } from 'react-router-dom'
 
 interface Course {
   code: string
@@ -18,6 +19,7 @@ export type TCourseList = [Course[]]
 export default function Home() {
   const email = useSelector((state: any) => state.user.email)
   const [courseData, setCourseData] = useState<TCourseList>([[]])
+
   async function setData() {
     const resp: any = await customAxios({
       url: customAxios.defaults.baseURL + '/home',
@@ -27,6 +29,11 @@ export default function Home() {
       },
     })
     setCourseData(resp.data)
+  }
+
+  function toCourse(id) {
+    console.log(id)
+    return undefined
   }
 
   useEffect(() => {
@@ -47,11 +54,14 @@ export default function Home() {
               </h3>
               <div key={courses[0].period} className='div-home'>
                 {courses.map((course: Course) => {
+                  const strLink = '/home/' + course._id
                   return (
-                    <div key={course._id} className='card-style-home'>
-                      <div className='title-card-home'>{course.code}</div>
-                      <div className='text-card-home'>{course.name}</div>
-                    </div>
+                    <Link to={strLink} key={course._id} className='link-home'>
+                      <div key={course._id} className='card-style-home'>
+                        <div className='title-card-home'>{course.code}</div>
+                        <div className='text-card-home'>{course.name}</div>
+                      </div>
+                    </Link>
                   )
                 })}
               </div>
