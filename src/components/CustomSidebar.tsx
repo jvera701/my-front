@@ -37,6 +37,7 @@ export type TCourseSidebar = ICourseSidebar[]
 const CustomSidebar = () => {
   const [pinnedCourses, setPinnedCourses] = useState<TCourseSidebar>([])
   const [courses, setCourses] = useState<TCourseSidebar>([])
+  const [search, setSearch] = useState('')
   const course = useSelector((state: any) => state.course)
 
   async function setData() {
@@ -48,33 +49,66 @@ const CustomSidebar = () => {
     setCourses(resp.data.notPinned)
   }
 
+  async function requestSearch() {
+    //console.log('search: ' + course + ' ' + ' course: ' + course)
+    const answer: any = await customAxios({
+      url: customAxios.defaults.baseURL + '/thread/search',
+      method: 'post',
+      data: {
+        courseId: course,
+        toSearch: search,
+      },
+    })
+    //console.log(answer.data)
+    setCourses(answer.data)
+  }
+
+  function updateSearch(e) {
+    e.preventDefault()
+    setSearch(e.target.value)
+  }
+
+  function handleKeypress(e) {
+    e.preventDefault()
+    if (e.keyCode === 13) {
+      console.log('search: ' + search)
+      requestSearch()
+    }
+  }
+
   useEffect(() => {
     setData()
   }, [])
 
   return (
-    <div className='sidebar'>
+    <div className='sidebar' onKeyUp={handleKeypress}>
       <InputGroup>
         <InputGroup.Text>
           <Search />
         </InputGroup.Text>
-        <Form.Control placeholder='Search' />
+        <Form.Control
+          placeholder='Search'
+          onChange={e => updateSearch(e)}
+          onSubmit={e => handleKeypress(e)}
+        />
       </InputGroup>
-      {courses.map(course => {
-        const obj2 = {
-          title: course.title,
-          score: course.score,
-          category: course.category,
-          time: msToTime(
-            new Date().getTime() - new Date(course.createdAt).getTime()
-          ),
-          replies: course.replies,
-          name: course.userId.name,
-          pinned: false,
-          _id: course._id,
-        }
-        return <ThreadSidebar key={course._id} {...obj2} />
-      })}
+      {courses.length > 0
+        ? courses.map(course => {
+            const obj2 = {
+              title: course.title,
+              score: course.score,
+              category: course.category,
+              time: msToTime(
+                new Date().getTime() - new Date(course.createdAt).getTime()
+              ),
+              replies: course.replies,
+              name: course.userId.name,
+              pinned: false,
+              _id: course._id,
+            }
+            return <ThreadSidebar key={course._id} {...obj2} />
+          })
+        : ''}
     </div>
   )
 }
