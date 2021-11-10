@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import CourseSidebar from './CourseSidebar'
+import ThreadSidebar from './ThreadSidebar'
 import Form from 'react-bootstrap/Form'
 import '../assets/styles/Course.css'
 import { InputGroup } from 'react-bootstrap'
@@ -28,6 +28,7 @@ interface ICourseSidebar {
   category: string
   createdAt: string
   replies: number
+  _id: string
   userId: IName
 }
 
@@ -70,8 +71,9 @@ const CustomSidebar = () => {
           replies: course.replies,
           name: course.userId.name,
           pinned: false,
+          _id: course._id,
         }
-        return <CourseSidebar key={course.title} {...obj2} />
+        return <ThreadSidebar key={course._id} {...obj2} />
       })}
     </div>
   )

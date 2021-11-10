@@ -6,6 +6,7 @@ import {
   LOGOUT,
   NOT_AUTHENTICATED,
   COURSE,
+  UPDATE_THREAD,
 } from './actions'
 
 function reducer(state: any, action: any) {
@@ -38,6 +39,11 @@ function reducer(state: any, action: any) {
         user: {},
         status: NOT_AUTHENTICATED,
         error: '',
+      }
+    case UPDATE_THREAD:
+      return {
+        ...state,
+        threadInformation: action.payload,
       }
     default:
       return state

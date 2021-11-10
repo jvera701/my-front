@@ -1,5 +1,12 @@
 import customAxios from '../axios'
-import { AUTHORIZATION, LOGIN, ERROR, LOGOUT, COURSE } from './actions'
+import {
+  AUTHORIZATION,
+  LOGIN,
+  ERROR,
+  LOGOUT,
+  COURSE,
+  UPDATE_THREAD,
+} from './actions'
 import history from '../history'
 import { Dispatch } from 'react'
 
@@ -50,6 +57,20 @@ export function logOut() {
     localStorage.removeItem(AUTHORIZATION)
     history.push('/')
     dispatch({ type: LOGOUT })
+  }
+}
+
+export function updatePost(threadId: string) {
+  return async function (dispatch: Dispatch<any>) {
+    try {
+      const response: any = await customAxios({
+        url: customAxios.defaults.baseURL + '/thread/' + threadId,
+        method: 'get',
+      })
+      dispatch({ type: UPDATE_THREAD, payload: response.data })
+    } catch (error) {
+      console.error(error)
+    }
   }
 }
 
