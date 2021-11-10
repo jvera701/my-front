@@ -2,13 +2,15 @@
   border-left-style: solid;
   border-color: gray;
   width: 100%;
-  max-height: 100%;
   border-width: thin;
   padding-left: 5px;
+  height: 100%;
+  max-height: 100%;
 }
 .post-bottom {
   display: flex;
   padding-top: 5px;
+  padding-bottom: 10px;
   font-size: large;
 }
 
@@ -17,37 +19,72 @@
   border-color: gray;
   border-style: solid;
   border-width: thin;
-}
-.post-info {
-  position: absolute;
-  right: 10px;
+  max-height: fit-content;
+  height: fit-content;
+  min-height: 29px;
+  margin-right: 5px;
 }
 
-.post-top {
-  display: grid;
-  grid-template-columns: 96% 4%;
+.post-comment-answer {
+  font-size: medium;
+  border-color: gray;
+  border-style: solid;
+  border-width: thin;
+  max-height: fit-content;
+  height: fit-content;
+  min-height: 29px;
+  margin-right: 5px;
 }
 
 .post-vote {
   display: flex;
-  flex-direction: column;
-  font-size: x-large;
+  position: absolute;
+  right: 10px;
+  font-size: large;
+}
+
+.post-comment-vote {
   padding-left: 5px;
+  font-size: medium;
+}
+
+.post-vote-comment {
+  font-size: large;
 }
 
 .post-title {
   text-align: center;
   font-size: xx-large;
 }
-
 .post-answers {
-  padding-top: 10px;
   font-size: x-large;
+  height: 35px;
+  max-height: 35px;
 }
 
 .post-person {
   position: absolute;
-  left: 60%;
+  left: 55%;
+}
+
+.post-time {
+  position: absolute;
+  left: 75%;
+}
+
+.post-comment-bottom {
+  display: flex;
+  padding-top: 5px;
+  font-size: medium;
+  padding-left: 30px;
+  padding-bottom: 10px;
+}
+
+.post-comment-top {
+  display: grid;
+  grid-template-columns: 96% 4%;
+  font-size: medium;
+  padding-left: 30px;
 }
 
 .btn-post {

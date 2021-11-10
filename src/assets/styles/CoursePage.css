@@ -1,12 +1,7 @@
 .course-page {
   display: flex;
-  position: absolute;
   width: 100%;
-  height: 94%;
+  max-height: 100%;
+  height: 100%;
   overflow-y: auto;
-}
-
-.category-left-sidebar {
-  display: grid;
-  grid-template-columns: 20% 80%;
 }
