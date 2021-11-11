@@ -55,7 +55,7 @@ export default function Home() {
                   return (
                     <Link
                       to={strLink}
-                      key={course._id}
+                      key={strLink}
                       className='link-home'
                       onClick={() => {
                         dispatch(putCourse(course._id))

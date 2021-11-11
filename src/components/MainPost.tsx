@@ -4,18 +4,25 @@ import Button from 'react-bootstrap/Button'
 import { ArrowDownCircle, ArrowUpCircle, Person } from 'react-bootstrap-icons'
 import '../assets/styles/Post.css'
 import CommentPost from './CommentPost'
+import { useState } from 'react'
+import ModalInput from './ModalInput'
 
 export default function MainPost(props) {
-  const { title, content, userId, score, createdAt, replies, comments } = props
+  const { title, content, userId, score, createdAt, replies, comments, id } =
+    props
   const role = useSelector((state: any) => state.user.role)
   const commentsExists = !!props.comments
+
+  const [show, setShow] = useState(false)
+  const handleClose = () => setShow(false)
+  const handleShow = () => setShow(true)
 
   return (
     <>
       {title !== '' ? <div className='post-title'>{title}</div> : ''}
       <div className='post-answer'> {content}</div>
       <div className='post-bottom'>
-        <Button variant='post' size='sm' type='submit'>
+        <Button variant='post' size='sm' type='submit' onClick={handleShow}>
           Reply
         </Button>
         <Button variant='post' size='sm' type='submit'>
@@ -54,9 +61,24 @@ export default function MainPost(props) {
       )}
       {commentsExists
         ? comments.map(comment => {
-            return <CommentPost {...comment} key={comment._id} />
+            return <CommentPost {...comment} key={comment._id} id={id} />
           })
         : ''}
+      {title !== '' ? (
+        <ModalInput
+          show={show}
+          handleClose={handleClose}
+          isMain={true}
+          id={''}
+        />
+      ) : (
+        <ModalInput
+          show={show}
+          handleClose={handleClose}
+          isMain={false}
+          id={id}
+        />
+      )}
     </>
   )
 }

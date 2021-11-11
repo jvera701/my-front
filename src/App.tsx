@@ -9,6 +9,7 @@ import PrivateRoute from './pages/PrivateRoute'
 import LoginRoute from './pages/LoginRoute'
 import Spinner from './components/Spinner'
 import Course from './pages/Course'
+import CreateThread from './pages/CreateThread'
 
 function App() {
   return (
@@ -18,6 +19,11 @@ function App() {
           <LoginRoute exact path='/' component={Login} />
           <PrivateRoute exact path='/home' component={Home} />
           <PrivateRoute exact path='/home/:id' component={Course} />
+          <PrivateRoute
+            exact
+            path='/home/:id/createThread'
+            component={CreateThread}
+          />
           <Route path='*' component={NotFound} />
         </Switch>
       </Suspense>

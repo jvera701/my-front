@@ -1,10 +1,8 @@
 import React from 'react'
 import '../assets/styles/Post.css'
 import { useSelector } from 'react-redux'
-import Latex from 'react-latex'
-import Button from 'react-bootstrap/Button'
+//import Latex from 'react-latex'
 
-import { ArrowDownCircle, ArrowUpCircle, Person } from 'react-bootstrap-icons'
 import MainPost from './MainPost'
 export default function Posts() {
   //const lat = `$\\int_{-\\infty}^\\infty x^{2}$`
@@ -12,10 +10,10 @@ export default function Posts() {
 
   return (
     <div className='post'>
-      <MainPost {...threadInfo.info} />
+      <MainPost {...threadInfo.info} id={''} />
       {threadInfo.comments.map(comment => {
         comment.title = ''
-        return <MainPost {...comment} key={comment._id} />
+        return <MainPost {...comment} id={comment._id} key={comment._id} />
       })}
     </div>
   )

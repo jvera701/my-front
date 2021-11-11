@@ -50,7 +50,6 @@ const CustomSidebar = () => {
   }
 
   async function requestSearch() {
-    //console.log('search: ' + course + ' ' + ' course: ' + course)
     const answer: any = await customAxios({
       url: customAxios.defaults.baseURL + '/thread/search',
       method: 'post',
@@ -59,7 +58,6 @@ const CustomSidebar = () => {
         toSearch: search,
       },
     })
-    //console.log(answer.data)
     setCourses(answer.data)
   }
 
