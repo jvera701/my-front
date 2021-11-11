@@ -16,6 +16,7 @@ const initialState = {
         name: '',
       },
     },
+    _id: '',
     comments: [],
   },
 }

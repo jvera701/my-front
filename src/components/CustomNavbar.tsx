@@ -14,7 +14,7 @@ function CustomNavbar() {
   }
 
   return (
-    <Navbar bg='blue' sticky='top' onSelect={key => logout(key)}>
+    <Navbar bg='blues' sticky='top' onSelect={key => logout(key)}>
       <NavItem className='me-auto'>
         <NavLink href='/home' className='orange'>
           Home

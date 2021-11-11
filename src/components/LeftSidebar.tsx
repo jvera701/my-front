@@ -19,9 +19,9 @@ export default function LeftSidebar() {
       </Button>
       <div className='title-left-sidebar'> Courses</div>
       <div className='courses-left-sidebar'>
-        <div>Math </div>
-        <div>Comp </div>
-        <div>Comp123 </div>
+        <div className='course-link-sidebar'>Math </div>
+        <div className='course-link-sidebar'>Comp </div>
+        <div className='course-link-sidebar'>Comp123 </div>
       </div>
       <div className='title-left-sidebar'>Categories</div>
       <div>

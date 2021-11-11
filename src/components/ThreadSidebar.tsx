@@ -9,6 +9,10 @@ export default function ThreadSidebar(props) {
   const { title, score, category, time, replies, name, pinned, _id } = props
   const dispatch = useDispatch()
 
+  let pillCategory = 'red'
+  if (category === 'General') pillCategory = 'blue'
+  else if (category === 'Lectures') pillCategory = 'green'
+
   return (
     <div
       className='card-course'
@@ -26,7 +30,7 @@ export default function ThreadSidebar(props) {
       </div>
       <div className='bottom-course'>
         <div className='thread-category-course'>
-          <Badge pill bg='green'>
+          <Badge pill bg={pillCategory}>
             {category}
           </Badge>
         </div>

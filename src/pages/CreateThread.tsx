@@ -42,7 +42,6 @@ export default function CreateThread() {
     if (arrOptions[0]) category = 'General'
     else if (arrOptions[1]) category = 'Lectures'
 
-    console.log(course)
     await customAxios({
       url: customAxios.defaults.baseURL + '/thread/create',
       method: 'post',
@@ -55,8 +54,6 @@ export default function CreateThread() {
         email: email,
       },
     })
-
-    console.log('/home/' + course)
     history.push('/home/' + course)
   }
 
@@ -104,8 +101,16 @@ export default function CreateThread() {
             />
           </div>
         </Form>
-        <Button type='button' onClick={() => handleSubmit()}>
+        <Button type='button' onClick={handleSubmit}>
           Submit
+        </Button>
+        <Button
+          type='button'
+          onClick={() => {
+            history.push('/home/' + course)
+          }}
+        >
+          Go back
         </Button>
       </div>
     </>

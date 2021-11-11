@@ -6,10 +6,19 @@
   padding-left: 5px;
   padding-bottom: 5px;
   padding-right: 5px;
+  cursor: pointer;
 }
 
 .bg-green {
   background-color: green;
+}
+
+.bg-blue {
+  background-color: blue;
+}
+
+.bg-red {
+  background-color: red;
 }
 
 .sidebar {
@@ -65,7 +74,7 @@
 }
 
 .chat-course {
-  color: blue;
+  color: gray;
 }
 
 .thread-category-course {

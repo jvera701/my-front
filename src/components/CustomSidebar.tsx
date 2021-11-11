@@ -6,17 +6,7 @@ import { InputGroup } from 'react-bootstrap'
 import { Search } from 'react-bootstrap-icons'
 import customAxios from '../axios'
 import { useSelector } from 'react-redux'
-
-function msToTime(ms) {
-  const seconds = ms / 1000
-  const minutes = ms / (1000 * 60)
-  const hours = ms / (1000 * 60 * 60)
-  const days = ms / (1000 * 60 * 60 * 24)
-  if (seconds < 60) return seconds.toFixed(0) + ' s'
-  else if (minutes < 60) return minutes.toFixed(0) + ' m'
-  else if (hours < 24) return hours.toFixed(0) + ' h'
-  else return days.toFixed(0) + ' d'
-}
+import { msToTime } from './Posts'
 
 interface IName {
   name: string
@@ -69,7 +59,6 @@ const CustomSidebar = () => {
   function handleKeypress(e) {
     e.preventDefault()
     if (e.keyCode === 13) {
-      console.log('search: ' + search)
       requestSearch()
     }
   }
@@ -96,9 +85,7 @@ const CustomSidebar = () => {
               title: course.title,
               score: course.score,
               category: course.category,
-              time: msToTime(
-                new Date().getTime() - new Date(course.createdAt).getTime()
-              ),
+              time: msToTime(course.createdAt),
               replies: course.replies,
               name: course.userId.name,
               pinned: false,

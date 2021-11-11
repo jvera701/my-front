@@ -92,6 +92,12 @@
   background-color: var(--charcoal);
   margin-right: 10px;
 }
+
+.btn-post-invisible {
+  color: white;
+  background-color: white;
+  margin-right: 10px;
+}
 .btn-post:hover {
   color: white;
   background-color: var(--charcoal);

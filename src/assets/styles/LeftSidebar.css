@@ -12,6 +12,11 @@
 .category-left-sidebar {
   display: grid;
   grid-template-columns: 20% 80%;
+  cursor: pointer;
+}
+
+.course-link-sidebar {
+  cursor: pointer;
 }
 
 .title-left-sidebar {
@@ -25,29 +30,13 @@
 }
 
 .general {
-  background: #13b4ff;
-}
-
-.tutorials {
-  background: brown;
+  background: blue;
 }
 
 .lectures {
-  background: cadetblue;
+  background: green;
 }
 
 .quizzes {
-  background: chartreuse;
-}
-
-.assignments {
   background: red;
-}
-
-.exams {
-  background: darkorchid;
-}
-
-.resources {
-  background: gold;
 }

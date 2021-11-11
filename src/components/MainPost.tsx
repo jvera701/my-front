@@ -6,12 +6,15 @@ import '../assets/styles/Post.css'
 import CommentPost from './CommentPost'
 import { useState } from 'react'
 import ModalInput from './ModalInput'
+import { msToTime } from './Posts'
 
 export default function MainPost(props) {
   const { title, content, userId, score, createdAt, replies, comments, id } =
     props
-  const role = useSelector((state: any) => state.user.role)
+  const { role, email } = useSelector((state: any) => state.user)
   const commentsExists = !!props.comments
+  const emailPost = userId.email
+  const showButton = role === 'admin' || email === emailPost
 
   const [show, setShow] = useState(false)
   const handleClose = () => setShow(false)
@@ -25,12 +28,19 @@ export default function MainPost(props) {
         <Button variant='post' size='sm' type='submit' onClick={handleShow}>
           Reply
         </Button>
-        <Button variant='post' size='sm' type='submit'>
-          Delete
-        </Button>
-        <Button variant='post' size='sm' type='submit'>
-          Edit
-        </Button>
+
+        {showButton ? (
+          <>
+            <Button variant='post' size='sm' type='submit'>
+              Delete
+            </Button>
+            <Button variant='post' size='sm' type='submit'>
+              Edit
+            </Button>{' '}
+          </>
+        ) : (
+          ''
+        )}
         {role === 'admin' ? (
           <Button variant='post' size='sm' type='submit'>
             Pin
@@ -42,7 +52,7 @@ export default function MainPost(props) {
           <Person />
           {userId.name}
         </div>
-        <div className='post-time'>{createdAt}</div>
+        <div className='post-time'>{msToTime(createdAt)}</div>
         <div className='post-vote'>
           <div> {score} &nbsp;</div>
           <div className='post-inner-vote'>
