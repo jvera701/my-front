@@ -1,6 +1,6 @@
 import Login from './pages/Login'
 import Home from './pages/Home'
-import { Router, Switch, Route } from 'react-router-dom'
+import { Router, Switch, Route, Redirect } from 'react-router-dom'
 import { Suspense } from 'react'
 import React from 'react'
 import NotFound from './pages/NotFound'
@@ -16,6 +16,7 @@ function App() {
     <Router history={history}>
       <Suspense fallback={<Spinner />}>
         <Switch>
+          <Redirect from='/homes/:id' to='/home/:id' />
           <LoginRoute exact path='/' component={Login} />
           <PrivateRoute exact path='/home' component={Home} />
           <PrivateRoute exact path='/home/:id' component={Course} />

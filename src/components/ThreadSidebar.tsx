@@ -1,5 +1,10 @@
 import React from 'react'
-import { ArrowUpCircle, PinAngleFill, ChatFill } from 'react-bootstrap-icons'
+import {
+  ArrowUpCircle,
+  PinAngleFill,
+  ChatFill,
+  Person,
+} from 'react-bootstrap-icons'
 import { Badge } from 'react-bootstrap'
 import { updatePost } from '../store/actionCreators'
 import '../assets/styles/Course.css'
@@ -38,7 +43,9 @@ export default function ThreadSidebar(props) {
         <div>
           {replies} <ChatFill className='chat-course' />
         </div>
-        <div className='name-course'> {name} </div>
+        <div className='name-course'>
+          <Person /> {name}{' '}
+        </div>
       </div>
     </div>
   )

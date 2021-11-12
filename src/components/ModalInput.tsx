@@ -4,6 +4,7 @@ import { Modal, Form, Button } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
 import customAxios from '../axios'
 import { updatePost } from '../store/actionCreators'
+import { useHistory } from 'react-router-dom'
 
 export default function ModalInput(props) {
   const [input, setInput] = useState('')
@@ -11,7 +12,9 @@ export default function ModalInput(props) {
 
   const threadId = useSelector((state: any) => state.threadInformation.info._id)
   const email = useSelector((state: any) => state.user.email)
+  const course = useSelector((state: any) => state.course)
   const dispatch = useDispatch()
+  const history = useHistory()
 
   function updateSearch(e) {
     e.preventDefault()
@@ -45,6 +48,7 @@ export default function ModalInput(props) {
 
     handleClose()
     dispatch(updatePost(threadId))
+    history.push('/homes/' + course)
   }
 
   return (

@@ -4,9 +4,15 @@ import Button from 'react-bootstrap/Button'
 import { ArrowDownCircle, ArrowUpCircle, Person } from 'react-bootstrap-icons'
 import '../assets/styles/Post.css'
 import { msToTime } from './Posts'
+import { useState } from 'react'
+import ModalEdit from './ModalEdit'
 
 export default function CommentPost(props) {
-  const { content, userId, score, createdAt } = props
+  const { content, userId, score, createdAt, commentId } = props
+
+  const [show, setShow] = useState(false)
+  const handleClose = () => setShow(false)
+  const handleShow = () => setShow(true)
 
   const { role, email } = useSelector((state: any) => state.user)
   const emailPost = userId.email
@@ -22,7 +28,7 @@ export default function CommentPost(props) {
             <Button variant='post' size='sm' type='submit'>
               Delete
             </Button>
-            <Button variant='post' size='sm' type='submit'>
+            <Button variant='post' size='sm' type='submit' onClick={handleShow}>
               Edit
             </Button>
           </>
@@ -47,6 +53,13 @@ export default function CommentPost(props) {
           </div>
         </div>
       </div>
+      <ModalEdit
+        show={show}
+        handleClose={handleClose}
+        isMain={false}
+        commentId={commentId}
+        content={content}
+      />
     </>
   )
 }

@@ -24,7 +24,7 @@ interface ICourseSidebar {
 
 export type TCourseSidebar = ICourseSidebar[]
 
-const CustomSidebar = () => {
+function CustomSidebar() {
   const [pinnedCourses, setPinnedCourses] = useState<TCourseSidebar>([])
   const [courses, setCourses] = useState<TCourseSidebar>([])
   const [search, setSearch] = useState('')

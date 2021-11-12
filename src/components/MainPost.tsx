@@ -7,6 +7,7 @@ import CommentPost from './CommentPost'
 import { useState } from 'react'
 import ModalInput from './ModalInput'
 import { msToTime } from './Posts'
+import ModalEdit from './ModalEdit'
 
 export default function MainPost(props) {
   const { title, content, userId, score, createdAt, replies, comments, id } =
@@ -19,6 +20,10 @@ export default function MainPost(props) {
   const [show, setShow] = useState(false)
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
+
+  const [showEdit, setShowEdit] = useState(false)
+  const handleCloseEdit = () => setShowEdit(false)
+  const handleShowEdit = () => setShowEdit(true)
 
   return (
     <>
@@ -34,7 +39,12 @@ export default function MainPost(props) {
             <Button variant='post' size='sm' type='submit'>
               Delete
             </Button>
-            <Button variant='post' size='sm' type='submit'>
+            <Button
+              variant='post'
+              size='sm'
+              type='submit'
+              onClick={handleShowEdit}
+            >
               Edit
             </Button>{' '}
           </>
@@ -71,7 +81,13 @@ export default function MainPost(props) {
       )}
       {commentsExists
         ? comments.map(comment => {
-            return <CommentPost {...comment} key={comment._id} id={id} />
+            return (
+              <CommentPost
+                {...comment}
+                key={comment._id}
+                commentId={comment._id}
+              />
+            )
           })
         : ''}
       {title !== '' ? (
@@ -87,6 +103,25 @@ export default function MainPost(props) {
           handleClose={handleClose}
           isMain={false}
           id={id}
+        />
+      )}
+      {title !== '' ? (
+        <ModalEdit
+          show={showEdit}
+          handleClose={handleCloseEdit}
+          isMain={true}
+          id={id}
+          content={content}
+          title={title}
+        />
+      ) : (
+        <ModalEdit
+          show={showEdit}
+          handleClose={handleCloseEdit}
+          isMain={false}
+          commentId={id}
+          content={content}
+          title={''}
         />
       )}
     </>
