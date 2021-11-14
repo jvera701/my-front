@@ -19,16 +19,27 @@ import MainPost from './MainPost'
 export default function Posts() {
   //const lat = `$\\int_{-\\infty}^\\infty x^{2}$`
   const threadInfo = useSelector((state: any) => state.threadInformation)
+  const message =
+    threadInfo.info.createdAt === threadInfo.info.updatedAt ? '' : 'edited'
 
   if (threadInfo._id === '') {
     return <div className='post'></div>
   } else {
     return (
       <div className='post'>
-        <MainPost {...threadInfo.info} id={''} />
+        <MainPost {...threadInfo.info} id={''} message={message} />
         {threadInfo.comments.map(comment => {
           comment.title = ''
-          return <MainPost {...comment} id={comment._id} key={comment._id} />
+          const innerMessage =
+            comment.createdAt === comment.updatedAt ? '' : 'edited'
+          return (
+            <MainPost
+              {...comment}
+              id={comment._id}
+              key={comment._id}
+              message={innerMessage}
+            />
+          )
         })}
       </div>
     )

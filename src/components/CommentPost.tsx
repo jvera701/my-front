@@ -9,7 +9,7 @@ import ModalEdit from './ModalEdit'
 import AlertDelete from './AlertDelete'
 
 export default function CommentPost(props) {
-  const { content, userId, score, createdAt, commentId } = props
+  const { content, userId, score, createdAt, commentId, message } = props
 
   const [show, setShow] = useState(false)
   const handleClose = () => setShow(false)
@@ -61,6 +61,7 @@ export default function CommentPost(props) {
           <div className='post-vote-comment'>
             <ArrowDownCircle />
           </div>
+          <div>{message}</div>
         </div>
       </div>
       <ModalEdit

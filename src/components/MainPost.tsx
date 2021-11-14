@@ -11,8 +11,17 @@ import ModalEdit from './ModalEdit'
 import AlertDelete from './AlertDelete'
 
 export default function MainPost(props) {
-  const { title, content, userId, score, createdAt, replies, comments, id } =
-    props
+  const {
+    title,
+    content,
+    userId,
+    score,
+    createdAt,
+    replies,
+    comments,
+    id,
+    message,
+  } = props
   const { role, email } = useSelector((state: any) => state.user)
   const commentsExists = !!props.comments
   const emailPost = userId.email
@@ -82,6 +91,7 @@ export default function MainPost(props) {
           <div className='post-inner-vote'>
             <ArrowDownCircle />
           </div>
+          <div>{message}</div>
         </div>
       </div>
       {title !== '' ? (
@@ -91,11 +101,14 @@ export default function MainPost(props) {
       )}
       {commentsExists
         ? comments.map(comment => {
+            const innerMessage =
+              comment.createdAt === comment.updatedAt ? '' : 'edited'
             return (
               <CommentPost
                 {...comment}
                 key={comment._id}
                 commentId={comment._id}
+                message={innerMessage}
               />
             )
           })
