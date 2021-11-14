@@ -138,6 +138,7 @@ export default function MainPost(props) {
           show={showDelete}
           handleClose={handleCloseDelete}
           isMain={true}
+          hasParent={false}
         />
       ) : (
         <AlertDelete
@@ -145,6 +146,7 @@ export default function MainPost(props) {
           handleClose={handleCloseDelete}
           isMain={false}
           commentId={id}
+          hasParent={false}
         />
       )}
     </>

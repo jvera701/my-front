@@ -75,6 +75,7 @@ export default function CommentPost(props) {
         handleClose={handleCloseDelete}
         isMain={false}
         commentId={commentId}
+        hasParent={true}
       />
     </>
   )
