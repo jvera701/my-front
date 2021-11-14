@@ -8,6 +8,7 @@ import {
   COURSE,
   UPDATE_THREAD,
   CLEAR_THREAD,
+  UPDATE_LIST_COURSES,
 } from './actions'
 
 function reducer(state: any, action: any) {
@@ -59,6 +60,11 @@ function reducer(state: any, action: any) {
           _id: '',
           comments: [],
         },
+      }
+    case UPDATE_LIST_COURSES:
+      return {
+        ...state,
+        coursesInformation: action.payload,
       }
     default:
       return state

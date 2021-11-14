@@ -7,9 +7,10 @@ import { InputGroup, Button } from 'react-bootstrap'
 import { PencilSquare } from 'react-bootstrap-icons'
 import { Search } from 'react-bootstrap-icons'
 import customAxios from '../axios'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { msToTime } from './Posts'
 import { useHistory } from 'react-router-dom'
+import { putCourse, clearThread } from '../store/actionCreators'
 
 interface IName {
   name: string
@@ -32,11 +33,13 @@ function CustomSidebar() {
   const [courses, setCourses] = useState<TCourseSidebar>([])
   const [search, setSearch] = useState('')
   const course = useSelector((state: any) => state.course)
+  const coursesInfo = useSelector((state: any) => state.coursesInformation)
   const history = useHistory()
+  const dispatch = useDispatch()
 
-  async function setData() {
+  async function setData(customCourse) {
     const resp: any = await customAxios({
-      url: customAxios.defaults.baseURL + '/' + course,
+      url: customAxios.defaults.baseURL + '/' + customCourse,
       method: 'get',
     })
     setPinnedCourses(resp.data.pinned)
@@ -79,8 +82,15 @@ function CustomSidebar() {
     }
   }
 
+  function handleClickSidebar(customCourse) {
+    history.push('/home/' + customCourse._id)
+    dispatch(putCourse(customCourse._id))
+    dispatch(clearThread())
+    setData(customCourse._id)
+  }
+
   useEffect(() => {
-    setData()
+    setData(course)
   }, [])
 
   return (
@@ -95,9 +105,17 @@ function CustomSidebar() {
         </Button>
         <div className='title-left-sidebar'> Courses</div>
         <div className='courses-left-sidebar'>
-          <div className='course-link-sidebar'>Math </div>
-          <div className='course-link-sidebar'>Comp </div>
-          <div className='course-link-sidebar'>Comp123 </div>
+          {coursesInfo.map(course => {
+            return (
+              <div
+                className='course-link-sidebar'
+                key={course._id}
+                onClick={() => handleClickSidebar(course)}
+              >
+                {course.code}
+              </div>
+            )
+          })}
         </div>
         <div className='title-left-sidebar'>Categories</div>
         <div>

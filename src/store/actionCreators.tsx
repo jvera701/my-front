@@ -7,6 +7,7 @@ import {
   COURSE,
   UPDATE_THREAD,
   CLEAR_THREAD,
+  UPDATE_LIST_COURSES,
 } from './actions'
 import history from '../history'
 import { Dispatch } from 'react'
@@ -90,6 +91,16 @@ export function clearThread() {
   return async function (dispatch: Dispatch<any>) {
     try {
       dispatch({ type: CLEAR_THREAD })
+    } catch (e) {
+      console.error(e)
+    }
+  }
+}
+
+export function putCoursesInfo(arr) {
+  return async function (dispatch: Dispatch<any>) {
+    try {
+      dispatch({ type: UPDATE_LIST_COURSES, payload: arr })
     } catch (e) {
       console.error(e)
     }

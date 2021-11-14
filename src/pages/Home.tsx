@@ -6,13 +6,18 @@ import { useSelector } from 'react-redux'
 import Spinner from '../components/Spinner'
 import { Link } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { putCourse } from '../store/actionCreators'
+import { putCourse, putCoursesInfo } from '../store/actionCreators'
 interface Course {
   code: string
   period: number
   name: string
   _id: string
   files: [string]
+}
+
+interface CourseInfo {
+  code: string
+  _id: string
 }
 
 export type TCourseList = [Course[]]
@@ -43,6 +48,10 @@ export default function Home() {
       <>
         <CustomNavbar />
         {courseData.map((courses: Course[]) => {
+          const courseData: CourseInfo[] = []
+          for (let i = 0; i < courses.length; i++) {
+            courseData.push({ _id: courses[i]._id, code: courses[i].code })
+          }
           return (
             <>
               <h3 className='subtitle-home'>
@@ -59,6 +68,7 @@ export default function Home() {
                       className='link-home'
                       onClick={() => {
                         dispatch(putCourse(course._id))
+                        dispatch(putCoursesInfo(courseData))
                       }}
                     >
                       <div key={course._id} className='card-style-home'>
