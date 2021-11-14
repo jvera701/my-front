@@ -8,6 +8,7 @@ import { useState } from 'react'
 import ModalInput from './ModalInput'
 import { msToTime } from './Posts'
 import ModalEdit from './ModalEdit'
+import AlertDelete from './AlertDelete'
 
 export default function MainPost(props) {
   const { title, content, userId, score, createdAt, replies, comments, id } =
@@ -25,6 +26,10 @@ export default function MainPost(props) {
   const handleCloseEdit = () => setShowEdit(false)
   const handleShowEdit = () => setShowEdit(true)
 
+  const [showDelete, setShowDelete] = useState(false)
+  const handleCloseDelete = () => setShowDelete(false)
+  const handleShowDelete = () => setShowDelete(true)
+
   return (
     <>
       {title !== '' ? <div className='post-title'>{title}</div> : ''}
@@ -36,7 +41,12 @@ export default function MainPost(props) {
 
         {showButton ? (
           <>
-            <Button variant='post' size='sm' type='submit'>
+            <Button
+              variant='post'
+              size='sm'
+              type='submit'
+              onClick={handleShowDelete}
+            >
               Delete
             </Button>
             <Button
@@ -112,7 +122,6 @@ export default function MainPost(props) {
           isMain={true}
           id={id}
           content={content}
-          title={title}
         />
       ) : (
         <ModalEdit
@@ -121,7 +130,21 @@ export default function MainPost(props) {
           isMain={false}
           commentId={id}
           content={content}
-          title={''}
+        />
+      )}
+
+      {title !== '' ? (
+        <AlertDelete
+          show={showDelete}
+          handleClose={handleCloseDelete}
+          isMain={true}
+        />
+      ) : (
+        <AlertDelete
+          show={showDelete}
+          handleClose={handleCloseDelete}
+          isMain={false}
+          commentId={id}
         />
       )}
     </>

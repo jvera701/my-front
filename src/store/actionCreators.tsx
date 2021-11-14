@@ -6,6 +6,7 @@ import {
   LOGOUT,
   COURSE,
   UPDATE_THREAD,
+  CLEAR_THREAD,
 } from './actions'
 import history from '../history'
 import { Dispatch } from 'react'
@@ -67,6 +68,7 @@ export function updatePost(threadId: string) {
         url: customAxios.defaults.baseURL + '/thread/' + threadId,
         method: 'get',
       })
+      dispatch({ type: CLEAR_THREAD })
       dispatch({ type: UPDATE_THREAD, payload: response.data })
     } catch (error) {
       console.error(error)
@@ -78,6 +80,16 @@ export function putCourse(courseId: string) {
   return async function (dispatch: Dispatch<any>) {
     try {
       dispatch({ type: COURSE, payload: { courseId } })
+    } catch (e) {
+      console.error(e)
+    }
+  }
+}
+
+export function clearThread() {
+  return async function (dispatch: Dispatch<any>) {
+    try {
+      dispatch({ type: CLEAR_THREAD })
     } catch (e) {
       console.error(e)
     }

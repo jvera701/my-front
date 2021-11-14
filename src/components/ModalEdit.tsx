@@ -3,14 +3,22 @@ import { Modal, Form, Button } from 'react-bootstrap'
 import customAxios from '../axios'
 import { useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import { updatePost } from '../store/actionCreators'
+import { clearThread, updatePost } from '../store/actionCreators'
 
 export default function ModalEdit(props) {
-  const { show, handleClose, isMain, commentId, content, id, title } = props
+  const { show, handleClose, isMain, commentId, content } = props
   const threadId = useSelector((state: any) => state.threadInformation.info._id)
+  const threadTitle = useSelector(
+    (state: any) => state.threadInformation.info.title
+  )
+  const threadContent = useSelector(
+    (state: any) => state.threadInformation.info.content
+  )
   const course = useSelector((state: any) => state.course)
-  const [titles, setTitles] = useState(title)
-  const [contents, setContents] = useState(content)
+
+  const [titles, setTitles] = useState(threadTitle)
+  const contentState = isMain ? threadContent : content
+  const [contents, setContents] = useState(contentState)
   const dispatch = useDispatch()
   const history = useHistory()
 
@@ -48,6 +56,7 @@ export default function ModalEdit(props) {
     }
 
     handleClose()
+    dispatch(clearThread())
     dispatch(updatePost(threadId))
     history.push('/homes/' + course)
   }

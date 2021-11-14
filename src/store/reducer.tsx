@@ -7,6 +7,7 @@ import {
   NOT_AUTHENTICATED,
   COURSE,
   UPDATE_THREAD,
+  CLEAR_THREAD,
 } from './actions'
 
 function reducer(state: any, action: any) {
@@ -44,6 +45,20 @@ function reducer(state: any, action: any) {
       return {
         ...state,
         threadInformation: action.payload,
+      }
+    case CLEAR_THREAD:
+      return {
+        ...state,
+        threadInformation: {
+          info: {
+            replies: 0,
+            userId: {
+              name: '',
+            },
+          },
+          _id: '',
+          comments: [],
+        },
       }
     default:
       return state
