@@ -16,6 +16,7 @@ export default function CreateThread() {
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
   const [arrOptions, setArrOptions] = useState([true, false, false])
+  const [validated, setValidated] = useState(false)
 
   function updateTitle(e) {
     e.preventDefault()
@@ -37,42 +38,58 @@ export default function CreateThread() {
     setArrOptions(newArr)
   }
 
-  async function handleSubmit() {
-    let category = 'Quizzes'
-    if (arrOptions[0]) category = 'General'
-    else if (arrOptions[1]) category = 'Lectures'
+  async function handleSubmit(e) {
+    e.preventDefault()
 
-    await customAxios({
-      url: customAxios.defaults.baseURL + '/thread/create',
-      method: 'post',
-      data: {
-        title: title,
-        content: content,
-        category: category,
-        photos: [],
-        courseId: course,
-        email: email,
-      },
-    })
-    history.push('/home/' + course)
+    const form = e.currentTarget
+    if (form.checkValidity() === false) {
+      e.preventDefault()
+      e.stopPropagation()
+      setValidated(true)
+    } else {
+      let category = 'Quizzes'
+      if (arrOptions[0]) category = 'General'
+      else if (arrOptions[1]) category = 'Lectures'
+
+      await customAxios({
+        url: customAxios.defaults.baseURL + '/thread/create',
+        method: 'post',
+        data: {
+          title: title,
+          content: content,
+          category: category,
+          photos: [],
+          courseId: course,
+          email: email,
+        },
+      })
+      history.push('/home/' + course)
+    }
   }
 
   return (
     <>
       <CustomNavbar />
       <div className='create-thread'>
-        <Form>
+        <Form noValidate validated={validated} onSubmit={handleSubmit}>
           <Form.Group className='mb-3' controlId='exampleForm.ControlInput1'>
             <Form.Label>Thread title </Form.Label>
-            <Form.Control size='lg' onChange={updateTitle} />
+            <Form.Control required size='lg' onChange={updateTitle} />
+            <Form.Control.Feedback type='invalid'>
+              Please enter a title
+            </Form.Control.Feedback>
 
             <Form.Label>Thread content</Form.Label>
             <Form.Control
+              required
               as='textarea'
               rows={3}
               size='lg'
               onChange={updateContent}
             />
+            <Form.Control.Feedback type='invalid'>
+              Please enter content
+            </Form.Control.Feedback>
           </Form.Group>
           <div className='mb-3'>
             <Form.Check
@@ -100,18 +117,16 @@ export default function CreateThread() {
               onChange={() => updateArr(2)}
             />
           </div>
+          <Button type='submit'>Submit</Button>
+          <Button
+            type='button'
+            onClick={() => {
+              history.push('/home/' + course)
+            }}
+          >
+            Go back
+          </Button>
         </Form>
-        <Button type='button' onClick={handleSubmit}>
-          Submit
-        </Button>
-        <Button
-          type='button'
-          onClick={() => {
-            history.push('/home/' + course)
-          }}
-        >
-          Go back
-        </Button>
       </div>
     </>
   )

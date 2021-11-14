@@ -1,12 +1,11 @@
+import React from 'react'
 import { Container } from 'react-bootstrap'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import '../assets/styles/login.css'
-import { useState, MouseEvent, ChangeEvent } from 'react'
-import React from 'react'
+import { useState, ChangeEvent } from 'react'
 import { useDispatch } from 'react-redux'
 import { loginAxios } from '../store/actionCreators'
-import { Link } from 'react-router-dom'
 import { AUTHORIZATION } from '../store/actions'
 import { loadUser, logOut } from '../store/actionCreators'
 import { useEffect } from 'react'
@@ -23,9 +22,8 @@ export default function Login() {
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [passwordError, setPasswordError] = useState(false)
-  const [loginError, setLoginError] = useState(false)
   const [invalidLogin, setInvalidLogin] = useState(false)
+  const [validated, setValidated] = useState(false)
 
   function updateLogin(e: ChangeEvent<HTMLInputElement>) {
     e.preventDefault()
@@ -37,52 +35,51 @@ export default function Login() {
     setPassword(e.target.value)
   }
 
-  function login(e: MouseEvent<HTMLButtonElement>) {
+  function handleSubmit(e) {
     e.preventDefault()
+
+    const form = e.currentTarget
+    if (form.checkValidity() === false) {
+      e.preventDefault()
+      e.stopPropagation()
+    }
+    setValidated(true)
     setInvalidLogin(false)
-    email === '' ? setLoginError(true) : setLoginError(false)
-    password === '' ? setPasswordError(true) : setPasswordError(false)
     if (email !== '' && password !== '')
       dispatch(loginAxios(email, password, setInvalidLogin))
   }
 
   return (
     <Container>
-      <Form>
+      <Form noValidate validated={validated} onSubmit={handleSubmit}>
         <h1 className='title-login'> Welcome to ed </h1>
         <Form.Group className='mb-3' controlId='formBasicEmail'>
           <Form.Label column='lg' className='login-text'>
             {' '}
             Email{' '}
           </Form.Label>
-          <Form.Control className='login-form' onChange={updateLogin} />
-          {loginError ? (
-            <div className='alert alert-danger mt-2'>
-              email is a required field.
-            </div>
-          ) : (
-            ''
-          )}
+          <Form.Control
+            required
+            className='login-form'
+            onChange={updateLogin}
+          />
+          <Form.Control.Feedback type='invalid'>
+            Please enter an email
+          </Form.Control.Feedback>
         </Form.Group>
         <Form.Group className='mb-3' controlId='formBasicPassword'>
           <Form.Label column='lg' className='login-text'>
             Password
           </Form.Label>
-          <Form.Control type='password' onChange={updatePassword} />
-          {passwordError ? (
-            <div className='alert alert-danger mt-2'>
-              Password is a required field.
-            </div>
-          ) : (
-            ''
-          )}
+          <Form.Control required type='password' onChange={updatePassword} />
+          <Form.Control.Feedback type='invalid'>
+            Please enter a password
+          </Form.Control.Feedback>
         </Form.Group>
-        <Link to='/home'>
-          <Button variant='login-btn' size='lg' type='submit' onClick={login}>
-            Login
-          </Button>
-        </Link>{' '}
         <Button variant='login-btn' size='lg' type='submit'>
+          Login
+        </Button>{' '}
+        <Button variant='login-btn' size='lg'>
           Forgot password
         </Button>
         {invalidLogin ? (

@@ -15,56 +15,71 @@ export default function ModalInput(props) {
   const course = useSelector((state: any) => state.course)
   const dispatch = useDispatch()
   const history = useHistory()
+  const [validated, setValidated] = useState(false)
 
   function updateSearch(e) {
     e.preventDefault()
     setInput(e.target.value)
   }
 
-  async function submit() {
-    if (isMain) {
-      await customAxios({
-        url: customAxios.defaults.baseURL + '/comment',
-        method: 'post',
-        data: {
-          content: input,
-          email: email,
-          threadId: threadId,
-          parentCommentId: '',
-        },
-      })
-    } else {
-      await customAxios({
-        url: customAxios.defaults.baseURL + '/comment',
-        method: 'post',
-        data: {
-          content: input,
-          email: email,
-          threadId: '',
-          parentCommentId: id,
-        },
-      })
-    }
+  async function submit(e) {
+    e.preventDefault()
 
-    handleClose()
-    dispatch(updatePost(threadId))
-    history.push('/homes/' + course)
+    const form = e.currentTarget
+    if (form.checkValidity() === false) {
+      e.preventDefault()
+      e.stopPropagation()
+      setValidated(true)
+    } else {
+      if (isMain) {
+        await customAxios({
+          url: customAxios.defaults.baseURL + '/comment',
+          method: 'post',
+          data: {
+            content: input,
+            email: email,
+            threadId: threadId,
+            parentCommentId: '',
+          },
+        })
+      } else {
+        await customAxios({
+          url: customAxios.defaults.baseURL + '/comment',
+          method: 'post',
+          data: {
+            content: input,
+            email: email,
+            threadId: '',
+            parentCommentId: id,
+          },
+        })
+      }
+
+      handleClose()
+      dispatch(updatePost(threadId))
+      history.push('/homes/' + course)
+    }
   }
 
   return (
     <Modal show={show} onHide={handleClose} backdrop='static' keyboard={false}>
       {' '}
-      <Modal.Header closeButton>
-        <Modal.Title>Enter comment</Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <Form.Control onChange={e => updateSearch(e)} />
-      </Modal.Body>
-      <Modal.Footer>
-        <Button variant='primary' onClick={submit}>
-          Submit
-        </Button>
-      </Modal.Footer>
+      <Form noValidate validated={validated} onSubmit={submit}>
+        <Modal.Header closeButton>
+          <Modal.Title>Enter comment</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form.Control required onChange={updateSearch} />
+          <Form.Control.Feedback type='invalid'>
+            Please enter a comment
+          </Form.Control.Feedback>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant='primary' type='submit'>
+            Submit
+          </Button>
+        </Modal.Footer>
+      </Form>
     </Modal>
   )
 }
