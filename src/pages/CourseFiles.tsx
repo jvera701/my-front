@@ -7,6 +7,7 @@ import {
   listAll,
   getDownloadURL,
   uploadBytes,
+  deleteObject,
 } from 'firebase/storage'
 import CustomNavbar from '../components/CustomNavbar'
 import '../assets/styles/CourseFiles.css'
@@ -14,8 +15,6 @@ import Spinner from '../components/Spinner'
 import Button from 'react-bootstrap/Button'
 import { useHistory } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import { InputGroup } from 'react-bootstrap'
-import Form from 'react-bootstrap/Form'
 
 const {
   REACT_APP_apiKey,
@@ -92,6 +91,16 @@ export default function CourseFiles() {
     setArrCheck(updateState)
   }
 
+  async function handleDeletion() {
+    for (let i = 0; i < arrCheck.length; i++) {
+      if (arrCheck[i]) {
+        const desertRef = ref(storage, course + '/' + files[i].name)
+        await deleteObject(desertRef)
+        setup()
+      }
+    }
+  }
+
   async function handleSubmission() {
     if (isFilePicked) {
       try {
@@ -147,7 +156,10 @@ export default function CourseFiles() {
               <Button onClick={handleSubmission} variant='post'>
                 Upload file
               </Button>
-              <Button variant='post'> Delete </Button>
+              <Button onClick={handleDeletion} variant='post'>
+                {' '}
+                Delete{' '}
+              </Button>
             </>
           ) : (
             ''

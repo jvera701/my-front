@@ -55,8 +55,12 @@ export default function AlertDelete(props) {
       >
         <Alert show={show} variant={'danger'}>
           <Alert.Heading>{message}</Alert.Heading>
-          <Button onClick={deleteComment}>Ok</Button>
-          <Button onClick={handleClose}>Cancel</Button>
+          <Button variant='post' onClick={deleteComment}>
+            Ok
+          </Button>
+          <Button variant='post' onClick={handleClose}>
+            Cancel
+          </Button>
         </Alert>
       </Modal>
     </>

@@ -1,7 +1,7 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import Button from 'react-bootstrap/Button'
-import { ArrowDownCircle, ArrowUpCircle, Person } from 'react-bootstrap-icons'
+import { Person } from 'react-bootstrap-icons'
 import '../assets/styles/Post.css'
 import CommentPost from './CommentPost'
 import { useState } from 'react'
@@ -83,14 +83,6 @@ export default function MainPost(props) {
         </div>
         <div className='post-time'>{msToTime(createdAt)}</div>
         <div className='post-vote'>
-          <div> {score} &nbsp;</div>
-          <div className='post-inner-vote'>
-            <ArrowUpCircle />
-          </div>
-          <div> &nbsp; </div>
-          <div className='post-inner-vote'>
-            <ArrowDownCircle />
-          </div>
           <div>{message}</div>
         </div>
       </div>

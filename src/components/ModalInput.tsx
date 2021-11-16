@@ -75,7 +75,7 @@ export default function ModalInput(props) {
           </Form.Control.Feedback>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant='primary' type='submit'>
+          <Button variant='post' type='submit'>
             Submit
           </Button>
         </Modal.Footer>

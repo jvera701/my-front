@@ -110,7 +110,7 @@ export default function ModalEdit(props) {
             </Form.Group>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant='primary' type='submit'>
+            <Button variant='post' type='submit'>
               Submit
             </Button>
           </Modal.Footer>
@@ -141,7 +141,7 @@ export default function ModalEdit(props) {
             </Form.Control.Feedback>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant='primary' type='submit'>
+            <Button variant='post' type='submit'>
               Submit
             </Button>
           </Modal.Footer>

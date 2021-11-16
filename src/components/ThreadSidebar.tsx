@@ -1,10 +1,5 @@
 import React from 'react'
-import {
-  ArrowUpCircle,
-  PinAngleFill,
-  ChatFill,
-  Person,
-} from 'react-bootstrap-icons'
+import { PinAngleFill, ChatFill, Person } from 'react-bootstrap-icons'
 import { Badge } from 'react-bootstrap'
 import { updatePost } from '../store/actionCreators'
 import '../assets/styles/Course.css'
@@ -30,7 +25,6 @@ export default function ThreadSidebar(props) {
         <div className='right-course'>
           {pinned ? <PinAngleFill className='pin-course' /> : ''}
           <span> &nbsp;</span>
-          {score} <ArrowUpCircle className='arrow-course' />
         </div>
       </div>
       <div className='bottom-course'>

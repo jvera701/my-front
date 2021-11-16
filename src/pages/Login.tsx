@@ -52,7 +52,7 @@ export default function Login() {
   return (
     <Container>
       <Form noValidate validated={validated} onSubmit={handleSubmit}>
-        <h1 className='title-login'> Welcome to ed </h1>
+        <h1 className='title-login'> Welcome to educas </h1>
         <Form.Group className='mb-3' controlId='formBasicEmail'>
           <Form.Label column='lg' className='login-text'>
             {' '}
