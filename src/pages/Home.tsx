@@ -26,8 +26,10 @@ export default function Home() {
   const email = useSelector((state: any) => state.user.email)
   const [courseData, setCourseData] = useState<TCourseList>([[]])
   const dispatch = useDispatch()
+  const [loaded, setLoaded] = useState(false)
 
   async function setData() {
+    setLoaded(false)
     const resp: any = await customAxios({
       url: customAxios.defaults.baseURL + '/home',
       method: 'post',
@@ -36,13 +38,14 @@ export default function Home() {
       },
     })
     setCourseData(resp.data)
+    setLoaded(true)
   }
 
   useEffect(() => {
     setData()
   }, [])
 
-  if (courseData.length === 1) return <Spinner />
+  if (!loaded) return <Spinner />
   else {
     return (
       <>

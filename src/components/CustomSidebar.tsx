@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import ThreadSidebar from './ThreadSidebar'
 import Form from 'react-bootstrap/Form'
 import '../assets/styles/Course.css'
@@ -11,44 +11,13 @@ import { useSelector, useDispatch } from 'react-redux'
 import { msToTime } from './Posts'
 import { useHistory } from 'react-router-dom'
 import { putCourse, clearThread } from '../store/actionCreators'
-import Spinner from '../components/Spinner'
 
-interface IName {
-  name: string
-}
-
-interface ICourseSidebar {
-  title: string
-  score: number
-  category: string
-  createdAt: string
-  replies: number
-  _id: string
-  userId: IName
-}
-
-export type TCourseSidebar = ICourseSidebar[]
-
-function CustomSidebar() {
-  const [pinnedCourses, setPinnedCourses] = useState<TCourseSidebar>([])
-  const [courses, setCourses] = useState<TCourseSidebar>([])
-  const [search, setSearch] = useState('')
-  const [loaded, setLoaded] = useState(false)
+function CustomSidebar(props) {
   const course = useSelector((state: any) => state.course)
   const coursesInfo = useSelector((state: any) => state.coursesInformation)
   const history = useHistory()
   const dispatch = useDispatch()
-
-  async function setData(customCourse) {
-    setLoaded(false)
-    const resp: any = await customAxios({
-      url: customAxios.defaults.baseURL + '/' + customCourse,
-      method: 'get',
-    })
-    setPinnedCourses(resp.data.pinned)
-    setCourses(resp.data.notPinned)
-    setLoaded(true)
-  }
+  const { setData, courses, setCourses, setSearch, search } = props
 
   async function requestSearch() {
     const answer: any = await customAxios({
@@ -92,12 +61,6 @@ function CustomSidebar() {
     dispatch(clearThread())
     setData(customCourse._id)
   }
-
-  useEffect(() => {
-    setData(course)
-  }, [])
-
-  if (!loaded) return <Spinner />
 
   return (
     <>

@@ -1,13 +1,21 @@
 import React, { useEffect, useState } from 'react'
 
 import { initializeApp } from 'firebase/app'
-import { getStorage, ref, listAll, getDownloadURL } from 'firebase/storage'
+import {
+  getStorage,
+  ref,
+  listAll,
+  getDownloadURL,
+  uploadBytes,
+} from 'firebase/storage'
 import CustomNavbar from '../components/CustomNavbar'
 import '../assets/styles/CourseFiles.css'
 import Spinner from '../components/Spinner'
 import Button from 'react-bootstrap/Button'
 import { useHistory } from 'react-router-dom'
 import { useSelector } from 'react-redux'
+import { InputGroup } from 'react-bootstrap'
+import Form from 'react-bootstrap/Form'
 
 const {
   REACT_APP_apiKey,
@@ -25,7 +33,11 @@ interface ICourseFiles {
 
 export default function CourseFiles() {
   const [files, setFiles] = useState<ICourseFiles[]>([])
+  const [selectedFile, setSelectedFile] = useState<any>()
+  const [isFilePicked, setIsFilePicked] = useState(false)
+  const [arrCheck, setArrCheck] = useState<boolean[]>([])
   const course = useSelector((state: any) => state.course)
+  const role = useSelector((state: any) => state.user.role)
   const [loaded, setLoaded] = useState(false)
   const history = useHistory()
 
@@ -41,7 +53,7 @@ export default function CourseFiles() {
   // Initialize Firebase
   const app = initializeApp(firebaseConfig)
   const storage = getStorage(app)
-  const listRef = ref(storage, course)
+  const listRef = ref(storage, course + '/')
 
   async function setup() {
     try {
@@ -50,18 +62,45 @@ export default function CourseFiles() {
       const array: ICourseFiles[] = []
 
       for (let i = 0; i < res.items.length; i++) {
-        const fileName = res.items[i]._location.path_.split(
-          '617ec8fe69bb78520d65daae/'
-        )[1]
+        const fileName = res.items[i]._location.path_.split(course + '/')[1]
         const url = await getDownloadURL(
           ref(storage, res.items[i]._location.path_)
         )
         array.push({ name: fileName, reference: url })
       }
       setFiles(array)
+      const booleanArr: boolean[] = []
+      for (let i = 0; i < array.length; i++) {
+        booleanArr.push(false)
+      }
+      setArrCheck(booleanArr)
       setLoaded(true)
     } catch (e) {
       console.error(e)
+    }
+  }
+
+  function changeHandler(event) {
+    setSelectedFile(event.target.files[0])
+    setIsFilePicked(true)
+  }
+
+  function handleChange(position) {
+    const updateState = arrCheck.map((item, index) =>
+      index === position ? !item : item
+    )
+    setArrCheck(updateState)
+  }
+
+  async function handleSubmission() {
+    if (isFilePicked) {
+      try {
+        const newRef = ref(storage, course + '/' + selectedFile.name)
+        await uploadBytes(newRef, selectedFile)
+        setup()
+      } catch (e) {
+        console.error(e)
+      }
     }
   }
 
@@ -76,24 +115,53 @@ export default function CourseFiles() {
       <CustomNavbar showFiles={true} />
       <div className='CourseFiles-title'> Course Files </div>
       <div className='CourseFiles-content'>
-        {files.map(file => {
+        {files.map((file, i) => {
           return (
-            <ul key={file.name}>
-              <a key={file.name} href={file.reference}>
-                {' '}
-                {file.name}{' '}
-              </a>
-            </ul>
+            <>
+              <ul key={file.name} className='CourseFiles-file'>
+                {role === 'admin' ? (
+                  <div key={file.name} className='CourseFiles-checkbox'>
+                    <input
+                      type='checkbox'
+                      checked={arrCheck[i]}
+                      onChange={() => handleChange(i)}
+                    />
+                  </div>
+                ) : (
+                  ''
+                )}
+
+                <a key={file.name} href={file.reference}>
+                  {' '}
+                  {file.name}{' '}
+                </a>
+              </ul>
+            </>
           )
         })}
-        <Button
-          type='button'
-          onClick={() => {
-            history.push('/home/' + course)
-          }}
-        >
-          Go back
-        </Button>
+
+        <div>
+          {role === 'admin' ? (
+            <>
+              <input type='file' name='file' onChange={changeHandler} />
+              <Button onClick={handleSubmission} variant='post'>
+                Upload file
+              </Button>
+              <Button variant='post'> Delete </Button>
+            </>
+          ) : (
+            ''
+          )}
+          <Button
+            type='button'
+            onClick={() => {
+              history.push('/home/' + course)
+            }}
+            variant='post'
+          >
+            Go back
+          </Button>
+        </div>
       </div>
     </>
   )
