@@ -7,7 +7,7 @@ import '../assets/styles/CoursePage.css'
 export default function Course() {
   return (
     <>
-      <CustomNavbar />
+      <CustomNavbar showFiles={true} />
       <div className='course-page'>
         <CustomSidebar />
         <Posts />

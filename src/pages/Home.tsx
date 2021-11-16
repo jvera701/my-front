@@ -46,7 +46,7 @@ export default function Home() {
   else {
     return (
       <>
-        <CustomNavbar />
+        <CustomNavbar showFiles={false} />
         {courseData.map((courses: Course[]) => {
           const courseData: CourseInfo[] = []
           for (let i = 0; i < courses.length; i++) {

@@ -1,10 +1,12 @@
 import { Navbar, NavItem, NavLink } from 'react-bootstrap'
+import { NavLink as NavLinkRoute } from 'react-router-dom'
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import { logOut } from '../store/actionCreators'
 import '../assets/styles/Navbar.css'
 
-function CustomNavbar() {
+function CustomNavbar(props) {
+  const { showFiles } = props
   const dispatch = useDispatch()
 
   function logout(key) {
@@ -16,10 +18,19 @@ function CustomNavbar() {
   return (
     <Navbar bg='blues' sticky='top' onSelect={key => logout(key)}>
       <NavItem className='me-auto'>
-        <NavLink href='/home' className='orange'>
+        <NavLink as={NavLinkRoute} to='/home' className='orange'>
           Home
         </NavLink>
       </NavItem>
+      {showFiles ? (
+        <NavItem>
+          <NavLink as={NavLinkRoute} to='/home123' className='orange'>
+            Files
+          </NavLink>
+        </NavItem>
+      ) : (
+        ''
+      )}
       <NavItem>
         <NavLink href='/' eventKey='logout' className='orange'>
           {' '}

@@ -1,7 +1,7 @@
 import React from 'react'
 import '../assets/styles/Post.css'
 import { useSelector } from 'react-redux'
-//import Latex from 'react-latex'
+import MainPost from './MainPost'
 
 export function msToTime(time) {
   const ms = new Date().getTime() - new Date(time).getTime()
@@ -14,10 +14,7 @@ export function msToTime(time) {
   else if (hours < 24) return hours.toFixed(0) + ' h'
   else return days.toFixed(0) + ' d'
 }
-
-import MainPost from './MainPost'
 export default function Posts() {
-  //const lat = `$\\int_{-\\infty}^\\infty x^{2}$`
   const threadInfo = useSelector((state: any) => state.threadInformation)
   const message =
     threadInfo.info.createdAt === threadInfo.info.updatedAt ? '' : 'edited'

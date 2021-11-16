@@ -69,17 +69,21 @@ export default function CreateThread() {
 
   return (
     <>
-      <CustomNavbar />
+      <CustomNavbar showFiles={true} />
       <div className='create-thread'>
         <Form noValidate validated={validated} onSubmit={handleSubmit}>
           <Form.Group className='mb-3' controlId='exampleForm.ControlInput1'>
-            <Form.Label>Thread title </Form.Label>
+            <Form.Label column='lg' lg={2}>
+              Thread title{' '}
+            </Form.Label>
             <Form.Control required size='lg' onChange={updateTitle} />
             <Form.Control.Feedback type='invalid'>
               Please enter a title
             </Form.Control.Feedback>
 
-            <Form.Label>Thread content</Form.Label>
+            <Form.Label column='lg' lg={2}>
+              Thread content
+            </Form.Label>
             <Form.Control
               required
               as='textarea'
@@ -117,12 +121,15 @@ export default function CreateThread() {
               onChange={() => updateArr(2)}
             />
           </div>
-          <Button type='submit'>Submit</Button>
+          <Button type='submit' variant='post'>
+            Submit
+          </Button>
           <Button
             type='button'
             onClick={() => {
               history.push('/home/' + course)
             }}
+            variant='post'
           >
             Go back
           </Button>

@@ -11,6 +11,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { msToTime } from './Posts'
 import { useHistory } from 'react-router-dom'
 import { putCourse, clearThread } from '../store/actionCreators'
+import Spinner from '../components/Spinner'
 
 interface IName {
   name: string
@@ -32,18 +33,21 @@ function CustomSidebar() {
   const [pinnedCourses, setPinnedCourses] = useState<TCourseSidebar>([])
   const [courses, setCourses] = useState<TCourseSidebar>([])
   const [search, setSearch] = useState('')
+  const [loaded, setLoaded] = useState(false)
   const course = useSelector((state: any) => state.course)
   const coursesInfo = useSelector((state: any) => state.coursesInformation)
   const history = useHistory()
   const dispatch = useDispatch()
 
   async function setData(customCourse) {
+    setLoaded(false)
     const resp: any = await customAxios({
       url: customAxios.defaults.baseURL + '/' + customCourse,
       method: 'get',
     })
     setPinnedCourses(resp.data.pinned)
     setCourses(resp.data.notPinned)
+    setLoaded(true)
   }
 
   async function requestSearch() {
@@ -92,6 +96,8 @@ function CustomSidebar() {
   useEffect(() => {
     setData(course)
   }, [])
+
+  if (!loaded) return <Spinner />
 
   return (
     <>
@@ -143,16 +149,18 @@ function CustomSidebar() {
         </div>
       </div>
       <div className='sidebar' onKeyUp={handleKeypress}>
-        <InputGroup>
-          <InputGroup.Text>
-            <Search />
-          </InputGroup.Text>
-          <Form.Control
-            placeholder='Search'
-            onChange={e => updateSearch(e)}
-            onSubmit={e => handleKeypress(e)}
-          />
-        </InputGroup>
+        <div className='search-sidebar'>
+          <InputGroup>
+            <InputGroup.Text>
+              <Search />
+            </InputGroup.Text>
+            <Form.Control
+              placeholder='Search'
+              onChange={e => updateSearch(e)}
+              onSubmit={e => handleKeypress(e)}
+            />
+          </InputGroup>
+        </div>
         {courses.length > 0
           ? courses.map(course => {
               const obj2 = {
