@@ -30,3 +30,9 @@
   margin-top: 25%;
   font-size: 50px;
 }
+
+.title-forgot-password {
+  text-align: center;
+  color: var(--charcoal);
+  font-size: xxx-large;
+}

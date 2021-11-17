@@ -11,6 +11,7 @@ import Spinner from './components/Spinner'
 import Course from './pages/Course'
 import CreateThread from './pages/CreateThread'
 import CourseFiles from './pages/CourseFiles'
+import ForgotPassword from './pages/ForgotPassword'
 
 function App() {
   return (
@@ -21,12 +22,13 @@ function App() {
           <LoginRoute exact path='/' component={Login} />
           <PrivateRoute exact path='/home' component={Home} />
           <PrivateRoute exact path='/home/:id' component={Course} />
-          <PrivateRoute exact path='/home123' component={CourseFiles} />
+          <PrivateRoute exact path='/files' component={CourseFiles} />
           <PrivateRoute
             exact
             path='/home/:id/createThread'
             component={CreateThread}
           />
+          <Route exact path='/password' component={ForgotPassword} />
           <Route path='*' component={NotFound} />
         </Switch>
       </Suspense>

@@ -24,7 +24,7 @@ function CustomNavbar(props) {
       </NavItem>
       {showFiles ? (
         <NavItem>
-          <NavLink as={NavLinkRoute} to='/home123' className='orange'>
+          <NavLink as={NavLinkRoute} to='/files' className='orange'>
             Files
           </NavLink>
         </NavItem>

@@ -93,8 +93,7 @@ export default function MainPost(props) {
       )}
       {commentsExists
         ? comments.map(comment => {
-            const innerMessage =
-              comment.createdAt === comment.updatedAt ? '' : 'edited'
+            const innerMessage = comment.isEdited ? 'edited' : ''
             return (
               <CommentPost
                 {...comment}

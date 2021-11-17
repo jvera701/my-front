@@ -32,6 +32,7 @@ export function loginAxios(
       dispatch({ type: LOGIN, payload: response.data })
       history.push('/home')
     } catch (e) {
+      console.error(e)
       setInvalidLogin(true)
     }
   }

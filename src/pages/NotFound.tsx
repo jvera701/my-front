@@ -15,7 +15,7 @@ export default function NotFound() {
         We are sorry! The page you are looking for does not exist
       </p>
       <img src={Broken} alt='not found' />
-      <Button variant='primary' size='lg' href={ref}>
+      <Button variant='post' size='lg' href={ref}>
         {' '}
         Go back{' '}
       </Button>

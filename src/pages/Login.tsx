@@ -9,6 +9,7 @@ import { loginAxios } from '../store/actionCreators'
 import { AUTHORIZATION } from '../store/actions'
 import { loadUser, logOut } from '../store/actionCreators'
 import { useEffect } from 'react'
+import { Link } from 'react-router-dom'
 
 export default function Login() {
   const dispatch = useDispatch()
@@ -52,7 +53,7 @@ export default function Login() {
   return (
     <Container>
       <Form noValidate validated={validated} onSubmit={handleSubmit}>
-        <h1 className='title-login'> Welcome to educas </h1>
+        <h1 className='title-login'> Welcome to Educas </h1>
         <Form.Group className='mb-3' controlId='formBasicEmail'>
           <Form.Label column='lg' className='login-text'>
             {' '}
@@ -79,9 +80,11 @@ export default function Login() {
         <Button variant='login-btn' size='lg' type='submit'>
           Login
         </Button>{' '}
-        <Button variant='login-btn' size='lg'>
-          Forgot password
-        </Button>
+        <Link to='/password'>
+          <Button variant='login-btn' size='lg'>
+            Forgot password
+          </Button>
+        </Link>
         {invalidLogin ? (
           <div className='alert alert-danger mt-2'>
             Invalid login, please try again

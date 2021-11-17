@@ -16,8 +16,7 @@ export function msToTime(time) {
 }
 export default function Posts() {
   const threadInfo = useSelector((state: any) => state.threadInformation)
-  const message =
-    threadInfo.info.createdAt === threadInfo.info.updatedAt ? '' : 'edited'
+  const message = threadInfo.info.isEdited ? 'edited' : ''
 
   if (threadInfo._id === '') {
     return <div className='post'></div>
@@ -27,8 +26,7 @@ export default function Posts() {
         <MainPost {...threadInfo.info} id={''} message={message} />
         {threadInfo.comments.map(comment => {
           comment.title = ''
-          const innerMessage =
-            comment.createdAt === comment.updatedAt ? '' : 'edited'
+          const innerMessage = comment.isEdited ? 'edited' : ''
           return (
             <MainPost
               {...comment}
